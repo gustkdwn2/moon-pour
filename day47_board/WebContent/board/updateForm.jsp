@@ -1,7 +1,9 @@
-<%@ page import="edu.bit.board.*" %>
+<%@page import="edu.bit.board.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file = "../view/color.jsp" %>
+<%@ page import = "edu.bit.board.BoardDAO" %>
+
 
 <!DOCTYPE html>
 <html>
@@ -20,7 +22,7 @@ int num = 0, ref=1, re_step=0, re_level=0;
 
 		try{
 		BoardDAO dao = BoardDAO.getInstance();
-		//BoardVO vo = dao.update(num); 
+		BoardVO vo = dao.update(num); 
 %>
 <body bgcolor = "<%=bodyback_c%>">
 <center><b>글 수정하기</b></center><br>
@@ -65,7 +67,7 @@ align="center">
 	<td align="center" colspan="2" bgcolor="<%=value_c %>">
 	<input type = "submit" value = "글수정">
 	<input type= "reset" value = "다시작성">
-	<input type = "button" value = "목록보기" onclick="windows.location='list.jsp?pageNum=<%=pageNum%>'">
+	<input type = "button" value = "목록보기" onclick="document.location='list.jsp?pageNum=<%=pageNum%>'">
 </tr>
 
 </table>
