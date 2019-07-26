@@ -1,33 +1,37 @@
+<!-- deletePro.jsp -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ page import="java.util.*, edu.bit.board.*"%>
-<%
-	request.setCharacterEncoding("UTF-8");
-%>
-<jsp:useBean id="vo" class="edu.bit.board.BoardVO">
-	<jsp:setProperty name="vo" property="*" />
-</jsp:useBean>
-<%
-	String pasgeNum = request.getParameter("pageNum");
-	String password = request.getParameter("passwd");
-	int num = vo.getNum();
-	BoardDAO dao = BoardDAO.getInstance();
-	boolean check = dao.delete(num, password);
-	if(check) {
-		response.sendRedirect("list.jsp");	
-	} else {
-		response.sendRedirect("deleteForm.jsp");
-	}
-	
-	//response.sendRedirect("list.jsp");
-%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>title</title>
-</head>
-<body>
+    pageEncoding="UTF-8"%>
+<%@ page import="edu.bit.board.*" %>
+<%@ page import="java.sql.Timestamp" %>
 
-</body>
-</html>
+<%
+	request.setCharacterEncoding("utf-8");
+%>
+
+<jsp:useBean id="vo"  class="edu.bit.board.BoardVO">
+    <jsp:setProperty  name="vo"   property="*"  />
+</jsp:useBean>
+
+<%
+	BoardDAO  dao = BoardDAO.getInstance();
+	String num = request.getParameter("num");
+	String pageNum = request.getParameter("pageNum");
+	
+	int check = dao.delete(Integer.parseInt(num), request.getParameter("passwd")); 
+	
+	if (check == 0) {
+%>
+		<script type="text/javascript">
+			alert("비밀 번호가 맞지 않습니다.");
+			history.go(-1);
+		</script>
+<%	}else {		%>
+		<meta  http-equiv="Refresh"  content="0; url=list.jsp?pageNum=<%= pageNum %>" >
+<%	}// if end %>
+
+
+
+
+
+
+

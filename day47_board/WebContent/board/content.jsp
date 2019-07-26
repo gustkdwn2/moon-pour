@@ -6,6 +6,7 @@
 <!DOCTYPE>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%@ page import = "java.text.SimpleDateFormat"%>
+<!-- <%@ include file = "/view/style.css"%> -->
 
 <html>
 <head><title>게시판</title>
@@ -16,7 +17,7 @@
 	String pageNum = request.getParameter("pageNum");
 	
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-	try {
+	try{
 		BoardDAO dao = BoardDAO.getInstance();
 		BoardVO vo = dao.getDataDetail(num);
 		
@@ -24,7 +25,7 @@
 		int re_step = vo.getRe_step();
 		int re_level = vo.getRe_level();
 		
-	
+		//System.out.print("content.jsp - ref : " + ref+" /re_step : " + re_step + " / re_level : " + re_level);
 %>
 <body bgcolor = "<%= bodyback_c %>">
 <center><b>상세보기 페이지</b><br>
@@ -58,7 +59,7 @@ bgcolor = "<%= bodyback_c %>" align="center">
 	<td colspan="4" align="right" bgcolor="<%=value_c%>">
 	<input type="button" value = "글수정" onclick="document.location.href='updateForm.jsp?num=<%=vo.getNum()%>&pageNum=<%=pageNum%>'"> 
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	<input type = "button" value = "글삭제" onclick="document.location.href='deleteForm.jsp?num=<%=vo.getNum()%>&pageNum=<%=pageNum%>'">
+	<input type = "button" value = "글삭제" onclick="document.location.href='deleteForm.jsp?num=	<%=vo.getNum()%>&pageNum=<%=pageNum%>'">
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	
 	<% if((ref==ref)&&(ref != num)){ %>

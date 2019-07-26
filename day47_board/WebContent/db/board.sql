@@ -1,4 +1,5 @@
 drop table board;
+select * from board;
 
 -- 1. 테이블 생성
 create table Board (
@@ -15,21 +16,21 @@ create table Board (
 	content  nvarchar2(2000) not null,	-- 글내용
 	ip varchar2(20)  not null,   		--글 쓴 곳의 아이피
 	constraint  board_num_pk  primary key(num)
-	
-) SEGMENT creation IMMEDIATE ;
+) SEGMENT creation IMMEDIATE;
 
 -- 2. sequence 생성
 create sequence board_num;		-- 자동 증가 번호
 
-
-
+drop SEQUENCE board_num;
+select board_num.nextVal from dual;
+select board_num.currVal from dual;
 
 select max(num) from board;
 
 
 insert into board(num, writer, subject, email, content, passwd, reg_date, ref, re_step, re_level, ip) 
 		values(board_num.nextval, 'b', 'b', 'b', 'b', 'b', '2016-03-21', 1, 1, 1, 1);
-		
+commit;		
 		
 select count(*) from board;
 

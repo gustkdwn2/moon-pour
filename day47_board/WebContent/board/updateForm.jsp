@@ -2,8 +2,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file = "../view/color.jsp" %>
-<%@ page import = "edu.bit.board.BoardDAO" %>
-
 
 <!DOCTYPE html>
 <html>
@@ -50,7 +48,6 @@ align="center">
 <input type= "text" size = "40" maxlength="50" name = "subject" value = "<%=vo.getSubject()%>"></td>
 </tr>
 
-<!--  --------------------------------------------------------------------------------------------- -->
 <tr>
 	<td width="70" bgcolor = "<%=value_c%>" align = "center"> EMAIL</td>
 	<td width="330"><input type="text" size= "40" maxlenth="30" name ="email" value ="<%=vo.getEmail()%>"></td>
@@ -67,7 +64,7 @@ align="center">
 	<td align="center" colspan="2" bgcolor="<%=value_c %>">
 	<input type = "submit" value = "글수정">
 	<input type= "reset" value = "다시작성">
-	<input type = "button" value = "목록보기" onclick="document.location='list.jsp?pageNum=<%=pageNum%>'">
+	<input type = "button" value = "목록보기" onclick="windows.location='list.jsp?pageNum=<%=pageNum%>'">
 </tr>
 
 </table>
