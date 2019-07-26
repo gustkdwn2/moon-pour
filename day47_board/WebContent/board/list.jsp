@@ -7,29 +7,31 @@
 <%@ include file = "/view/color.jsp" %>
 
 <%
-	int pageSize = 7;
-	int SU = pageSize - 1;
+	int pageSize = 7;  //화면에 출력 레코드 수
+	int SU = pageSize - 1; 
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	
 	String pageNum = request.getParameter("pageNum");
 	
-	if(pageNum == null) pageNum = "1";
+	if( pageNum == null ) pageNum = "1";
 	
-	int currentPage = Integer.parseInt(pageNum);
-	int startRow = (currentPage * pageSize) - SU;
-	int endRow = (currentPage * pageSize);
-	int count =0, number = 0;
+	int currentPage = Integer.parseInt(pageNum);  // ex) 1
+	int startRow = (currentPage * pageSize) - SU; // (1 * 7) - 6 = 1 : start
+	int endRow = (currentPage * pageSize);		  // (1 * 7) = 7 : end
+	int count = 0, number = 0;  //전체글수, 화면에 보여줄 글번호
 	
 	List list = null;
 	BoardDAO dao = BoardDAO.getInstance();
-	count = dao.getListAllCount();
+	count = dao.getListAllCount(); //전체 페이지 수 리턴
+	
 	if( count > 0 ) {
 		list = dao.getSelectAll(startRow, endRow);
-		
 	}
 	
-	number = count - (currentPage - 1) * pageSize;
-	
+	number = count - (currentPage - 1) * pageSize; 
+	// ex)     16 - (1 - 1) * 7  = 16
+	// ex)     16 - (2 - 1) * 7  = 9		
+			
 %>
 
 <html><head><title>게시판</title></head>
@@ -61,7 +63,7 @@
 			<td align="center" width="50">조회수</td>
 			<td align="center" width="50">I P</td>
 	<%
-		for(int i=0; i < list.size(); i++ ) {
+		for(int i=0; i < list.size(); i++ ) { //ArrayList 에 저장된 list size 만큼 반복
 			BoardVO vo = (BoardVO)list.get(i);
 	%>
 		<tr height="30" >
@@ -70,22 +72,21 @@
 			
 	<%
 	 		int wid = 0;
-			if( vo.getRe_level() > 0 ) {  //답변글이라면,....
-				wid = 5 * (vo.getRe_level());
+			if( vo.getRe_step() > 0 ) {  //답변글이라면 답변 이미지를 Subject앞에 출력 
+				wid = 5 * (vo.getRe_step());
 	%><img src="../images/level.gif " width="<%=wid %>"  height="16" >	
 			<img src="../images/re.gif" >
-	<% }else  { %>		
-		<img src="../images/re.gif" width="<%=wid %>"  height="16" >
-	<% } // if end  %>	
+	<% }//if end %>		
 	
 		<a href="content.jsp?num=<%=vo.getNum() %>&pageNum=<%=currentPage %>">
 				<%= vo.getSubject() %>
 		</a>
 		
 	<%
-			if ( vo.getReadcount() >= 3 ) {
-	%> <img src="../images/hot.gif" width="<%=wid %>"  height="16" >
-	<%    } // if end %>
+			if ( vo.getReadcount() >= 3 ) { // 조회수가 3이상이면 hot이미지 subject뒤에 삽입			
+	%> <img src="../images/hot.gif"  height="16" >
+		
+	<%      } // if end %>
 			</td>
 			<td align="center"  width="100">
 					<a href="mailto:<%=vo.getEmail()%>" > <%=vo.getEmail()%> </a></td>
@@ -97,16 +98,16 @@
 	</table>
 	<% } %>
 	
-	<%
-			if( count > 0 ) {  //전체 페이지의 수를 연산
+	<%      // 페이지 번호 //////////
+			if( count > 0 ) {  //전체 페이지의 수를 연산  ex) 16 % 7 = 2
 				int pageCount = count / pageSize + ( count % pageSize == 0 ? 0 : 1 );
-				int startPage = (int)(currentPage / 5 ) * 5 + 1 ;
+				int startPage = (int)(currentPage / 5 ) * 5 + 1 ; //(1/5)*5+1 = 1
 				int pageBlock = 5;
-				int endPage = startPage + pageBlock - 1 ;
+				int endPage = startPage + pageBlock - 1 ;  // 1 + 5 - 1 = 5
 				
 				if ( endPage > pageCount ) endPage = pageCount ;
 				
-				if ( startPage >5 ) {			
+				if ( startPage > 5 ) {			
 	%>
 			<a href="list.jsp?pageNum=<%=startPage-5 %>">[이전]</a>		
 	<%

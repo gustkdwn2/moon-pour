@@ -1,4 +1,4 @@
-<%@ page import="edu.bit.board.*" %>
+<%@page import="edu.bit.board.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file = "../view/color.jsp" %>
@@ -20,7 +20,7 @@ int num = 0, ref=1, re_step=0, re_level=0;
 
 		try{
 		BoardDAO dao = BoardDAO.getInstance();
-		//BoardVO vo = dao.update(num); 
+		BoardVO vo = dao.update(num); 
 %>
 <body bgcolor = "<%=bodyback_c%>">
 <center><b>글 수정하기</b></center><br>
@@ -48,7 +48,6 @@ align="center">
 <input type= "text" size = "40" maxlength="50" name = "subject" value = "<%=vo.getSubject()%>"></td>
 </tr>
 
-<!--  --------------------------------------------------------------------------------------------- -->
 <tr>
 	<td width="70" bgcolor = "<%=value_c%>" align = "center"> EMAIL</td>
 	<td width="330"><input type="text" size= "40" maxlenth="30" name ="email" value ="<%=vo.getEmail()%>"></td>
