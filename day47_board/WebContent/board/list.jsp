@@ -36,7 +36,7 @@
 <link href="/view/mystyle.css" rel="stylesheet" type="text/css">
 <body bgcolor="<%=bodyback_c %>">
 	<center>
-		<b>글 목록(전체 글 : <%= count %>)
+		<b>글 목록(전체 글 : <%= count %> 입니다)
 		</b>
 	
 	<table width="700">
